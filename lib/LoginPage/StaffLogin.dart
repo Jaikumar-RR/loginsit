@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginsit/ForgottenPassword/ForgottenPassword.dart';
+import 'package:loginsit/StaffPages/StudentList.dart';
 
 class StaffLogin extends StatefulWidget {
   const StaffLogin({Key? key}) : super(key: key);
@@ -121,6 +122,11 @@ class _StaffLoginState extends State<StaffLogin>
                             padding: EdgeInsets.symmetric(horizontal: 40),
                             child: ElevatedButton(
                               onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => StudentListPage()),
+                                );
                                 // Add your staff login logic here
                               },
                               style: ElevatedButton.styleFrom(
