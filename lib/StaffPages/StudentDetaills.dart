@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:loginsit/StaffPages/StudentList.dart';
+import 'package:loginsit/Backend/models/student_model.dart';
 
 class StudentDetailsPage extends StatelessWidget {
   final Student student;
@@ -71,7 +71,7 @@ class StudentDetailsPage extends StatelessWidget {
             SizedBox(height: 12.0),
             _buildDetailCard(
               'Registration Number',
-              student.registrationNumber.toString(),
+              student.registerNumber.toString(),
               icon: Icons.confirmation_number,
               iconColor: Colors.green,
             ),
@@ -140,7 +140,7 @@ class StudentDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillsSection(List<String> skills) {
+  Widget _buildSkillsSection(List<dynamic> skills) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

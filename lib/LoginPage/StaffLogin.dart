@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginsit/ForgottenPassword/ForgottenPassword.dart';
@@ -42,7 +42,7 @@ class _StaffLoginState extends State<StaffLogin>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -59,141 +59,143 @@ class _StaffLoginState extends State<StaffLogin>
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return Opacity(
-            opacity: _animation.value,
-            child: Transform.translate(
-              offset: Offset(0.0, 30 * (1 - _animation.value)),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Hero(
-                                tag: 'staff_icon',
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: 40 * _animation.value,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 50,
-                                    color: Colors.orange,
+      body: SingleChildScrollView(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Opacity(
+              opacity: _animation.value,
+              child: Transform.translate(
+                offset: Offset(0.0, 30 * (1 - _animation.value) - MediaQuery.of(context).viewInsets.bottom),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Hero(
+                                  tag: 'staff_icon',
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 40 * _animation.value,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 50,
+                                      color: Colors.orange,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "Staff Login",
-                                style: TextStyle(
-                                  fontSize: 30 * _animation.value,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Opacity(
-                                opacity: 0.6,
-                                child: Text(
-                                  "Login to your account",
+                                Text(
+                                  "Staff Login",
                                   style: TextStyle(
-                                      fontSize: 15 * _animation.value,
-                                      color: Colors.grey[700]),
+                                    fontSize: 30 * _animation.value,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 40),
-                            child: Column(
-                              children: <Widget>[
-                                makeInput(label: "Staff ID"),
-                                makeInput(label: "Password", obscureText: true),
+                                SizedBox(height: 10),
+                                Opacity(
+                                  opacity: 0.6,
+                                  child: Text(
+                                    "Login to your account",
+                                    style: TextStyle(
+                                        fontSize: 15 * _animation.value,
+                                        color: Colors.grey[700]),
+                                  ),
+                                ),
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 40),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => StudentListPage()),
-                                );
-                                // Add your staff login logic here
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                padding: EdgeInsets.all(0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: Column(
+                                children: <Widget>[
+                                  makeInput(label: "Staff ID"),
+                                  makeInput(label: "Password", obscureText: true),
+                                ],
                               ),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [Colors.blueAccent, Colors.red],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StudentListPage()),
+                                  );
+                                  // Add your staff login logic here
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
                                   ),
-                                  borderRadius: BorderRadius.circular(50),
+                                  padding: EdgeInsets.all(0),
                                 ),
-                                child: Container(
-                                  constraints: BoxConstraints(minHeight: 60),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Colors.blueAccent, Colors.red],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Container(
+                                    constraints: BoxConstraints(minHeight: 60),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgottenPasswordPage(),
-                                ),
-                              ); // Add your forgotten password logic here
-                            },
-                            child: Text(
-                              "Forgotten Password",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                  color: Colors.black87),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ForgottenPasswordPage(),
+                                  ),
+                                ); // Add your forgotten password logic here
+                              },
+                              child: Text(
+                                "Forgotten Password",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                    color: Colors.black87),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/ill.png'),
-                          fit: BoxFit.contain,
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: MediaQuery.of(context).size.height / 3,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/ill.png'),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

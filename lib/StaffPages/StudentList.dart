@@ -1,24 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loginsit/Backend/models/student_model.dart';
+import 'package:loginsit/Backend/requests.dart';
 import 'package:loginsit/StaffPages/DepartmentDetails.dart';
 
-class Student {
-  final String name;
-  final String department;
-  final int batchNumber;
-  final List<String> skills;
-  final DateTime dateOfBirth;
-  final String registrationNumber;
-
-  Student({
-    required this.name,
-    required this.department,
-    required this.batchNumber,
-    required this.skills,
-    required this.dateOfBirth,
-    required this.registrationNumber,
-  });
-}
 
 class StudentListPage extends StatefulWidget {
   @override
@@ -26,60 +13,29 @@ class StudentListPage extends StatefulWidget {
 }
 
 class _StudentListPageState extends State<StudentListPage> {
-  final List<Student> allStudents = [
-    Student(
-      name: 'John Doe',
-      department: 'Computer Science',
-      batchNumber: 2022,
-      skills: ['Flutter', 'Dart', 'UI/UX'],
-      dateOfBirth: DateTime(2000, 10, 15),
-      registrationNumber: 'REG001',
-    ),
-    Student(
-      name: 'Alice Johnson',
-      department: 'Computer Science',
-      batchNumber: 2023,
-      skills: ['Python', 'Java', 'Web Development'],
-      dateOfBirth: DateTime(2001, 5, 20),
-      registrationNumber: 'REG002',
-    ),
-    Student(
-      name: 'Emily Davis',
-      department: 'Electrical Engineering',
-      batchNumber: 2022,
-      skills: ['C', 'Embedded Systems', 'Signal Processing'],
-      dateOfBirth: DateTime(2000, 8, 7),
-      registrationNumber: 'REG003',
-    ),
-    Student(
-      name: 'Mike Williams',
-      department: 'Electrical Engineering',
-      batchNumber: 2023,
-      skills: ['MATLAB', 'Power Systems', 'Renewable Energy'],
-      dateOfBirth: DateTime(2001, 2, 18),
-      registrationNumber: 'REG004',
-    ),
-    Student(
-      name: 'Sarah Garcia',
-      department: 'CSD',
-      batchNumber: 2023,
-      skills: ['C++', 'Cybersecurity', 'Networking'],
-      dateOfBirth: DateTime(2001, 11, 30),
-      registrationNumber: 'REG005',
-    ),
-    // Add more students here...
-  ];
-
+  List<Student> allStudents = [];
   List<String> departments = [];
   String searchText = '';
+  var isLoaded = true;
 
   @override
   void initState() {
     super.initState();
-    departments =
-        allStudents.map((student) => student.department).toSet().toList();
+    initializeData();
   }
 
+  Future<void> initializeData() async {
+  List<Student> students = await Request.getAllStudents(); 
+  List<String> studentDepartments = students.map((student) => student.department).toSet().toList();
+
+  setState(() {
+    allStudents = students;
+    departments = studentDepartments;
+  });
+
+  print(departments);
+}
+  
   void filterStudentsByDepartment(String selectedDepartment) {
     final List<Student> filteredStudents = allStudents
         .where((student) => student.department == selectedDepartment)

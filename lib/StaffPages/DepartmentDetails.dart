@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loginsit/Backend/models/student_model.dart';
 import 'package:loginsit/StaffPages/StudentDetaills.dart';
-import 'package:loginsit/StaffPages/StudentList.dart';
+
 
 class DepartmentDetailsPage extends StatefulWidget {
   final String department;
@@ -393,7 +394,7 @@ class _DepartmentDetailsPageState extends State<DepartmentDetailsPage> {
                             ),
                           ],
                         ),
-                        Text('Reg No: ${student.registrationNumber}',
+                        Text('Reg No: ${student.registerNumber}',
                             style: TextStyle(fontSize: 14)),
                         SizedBox(height: 4),
                       ],

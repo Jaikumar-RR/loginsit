@@ -39,7 +39,7 @@ class _StudentLoginState extends State<StudentLogin>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -56,140 +56,143 @@ class _StudentLoginState extends State<StudentLogin>
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return Opacity(
-            opacity: _animation.value,
-            child: Transform.translate(
-              offset: Offset(0.0, 30 * (1 - _animation.value)),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Hero(
-                                tag: 'student_icon',
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: 40 * _animation.value,
-                                  child: Icon(
-                                    Icons.school,
-                                    size: 50,
-                                    color: Colors.blue,
+      body: SingleChildScrollView(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Opacity(
+              opacity: _animation.value,
+              child: Transform.translate(
+                offset: Offset(0.0, 30 * (1 - _animation.value) - MediaQuery.of(context).viewInsets.bottom),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Hero(
+                                  tag: 'student_icon',
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 40 * _animation.value,
+                                    child: Icon(
+                                      Icons.school,
+                                      size: 50,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "Student Login",
-                                style: TextStyle(
-                                  fontSize: 30 * _animation.value,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Opacity(
-                                opacity: 0.6,
-                                child: Text(
-                                  "Login to your account",
+                                Text(
+                                  "Student Login",
                                   style: TextStyle(
-                                      fontSize: 15 * _animation.value,
-                                      color: Colors.grey[700]),
+                                    fontSize: 30 * _animation.value,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 40),
-                            child: Column(
-                              children: <Widget>[
-                                makeInput(label: "Email"),
-                                makeInput(label: "Password", obscureText: true),
+                                SizedBox(height: 10),
+                                Opacity(
+                                  opacity: 0.6,
+                                  child: Text(
+                                    "Login to your account",
+                                    style: TextStyle(
+                                      fontSize: 15 * _animation.value,
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 40),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Add your login logic here
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                padding: EdgeInsets.all(0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: Column(
+                                children: <Widget>[
+                                  makeInput(label: "Email"),
+                                  makeInput(label: "Password", obscureText: true),
+                                ],
                               ),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.greenAccent,
-                                      Colors.lightGreenAccent
-                                    ],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Add your login logic here
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
                                   ),
-                                  borderRadius: BorderRadius.circular(50),
+                                  padding: EdgeInsets.all(0),
                                 ),
-                                child: Container(
-                                  constraints: BoxConstraints(minHeight: 60),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.greenAccent,
+                                        Colors.lightGreenAccent
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Container(
+                                    constraints: BoxConstraints(minHeight: 60),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgottenPasswordPage(),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ForgottenPasswordPage(),
+                                  ),
+                                ); // Add your forgotten password logic here
+                              },
+                              child: Text(
+                                "Forgotten Password",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Colors.black87,
                                 ),
-                              ); // Add your forgotten password logic here
-                            },
-                            child: Text(
-                              "Forgotten Password",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.black87,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/ill.png'),
-                          fit: BoxFit.contain,
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: MediaQuery.of(context).size.height / 3,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/ill.png'),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
